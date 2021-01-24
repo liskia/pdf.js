@@ -23,6 +23,7 @@ var cssvariables = require("postcss-css-variables");
 var fs = require("fs");
 var gulp = require("gulp");
 var postcss = require("gulp-postcss");
+var postcssUrl = require("postcss-url")
 var rename = require("gulp-rename");
 var replace = require("gulp-replace");
 var mkdirp = require("mkdirp");
@@ -40,6 +41,10 @@ var webpackStream = require("webpack-stream");
 var Vinyl = require("vinyl");
 var vfs = require("vinyl-fs");
 var through = require("through2");
+
+var postcssurloptions = [
+  { filter: '**/*.svg', basePath: 'web', url: 'inline' }
+];
 
 var BUILD_DIR = "build/";
 var L10N_DIR = "l10n/";
@@ -850,6 +855,7 @@ function buildGeneric(defines, dir) {
           cssvariables(CSS_VARIABLES_CONFIG),
           calc(),
           autoprefixer(AUTOPREFIXER_CONFIG),
+          postcssUrl(postcssurloptions),
         ])
       )
       .pipe(gulp.dest(dir + "web")),
@@ -928,6 +934,7 @@ function buildComponents(defines, dir) {
           cssvariables(CSS_VARIABLES_CONFIG),
           calc(),
           autoprefixer(AUTOPREFIXER_CONFIG),
+          postcssUrl(postcssurloptions),
         ])
       )
       .pipe(gulp.dest(dir)),
@@ -1023,6 +1030,7 @@ function buildMinified(defines, dir) {
           cssvariables(CSS_VARIABLES_CONFIG),
           calc(),
           autoprefixer(AUTOPREFIXER_CONFIG),
+          postcssUrl(postcssurloptions),
         ])
       )
       .pipe(gulp.dest(dir + "web")),
@@ -2261,5 +2269,20 @@ gulp.task(
   gulp.series(
     gulp.parallel("lint", "externaltest", "unittestcli", "typestest"),
     "lint-chromium"
+  )
+);
+
+gulp.task(
+  'liskia',
+  gulp.series(
+    'generic-es5',
+    function () {
+      return gulp.src('build/generic-es5/build/*')
+      .pipe(gulp.dest(path.resolve('../app/public/pdf/build')))
+    },
+    function () {
+      return gulp.src('build/generic-es5/web/**/*')
+      .pipe(gulp.dest(path.resolve('../app/public/pdf')))
+    }
   )
 );

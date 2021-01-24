@@ -41,6 +41,7 @@
     "postcss": "^8.2.4",
     "postcss-calc": "^7.0.5",
     "postcss-css-variables": "^0.17.0",
+    "postcss-url": "^10.1.1",
     "prettier": "^2.2.1",
     "puppeteer": "^5.5.0",
     "rimraf": "^3.0.2",

@@ -202,12 +202,6 @@ select {
   cursor: default;
 }
 
-#outerContainer {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
 #sidebarContainer {
   position: absolute;
   top: 32px;
