@@ -2415,17 +2415,7 @@ function reportPageStatsPDFBug({ pageNumber }) {
 
 function webViewerInitialized() {
   const appConfig = PDFViewerApplication.appConfig;
-  let file;
-  if (typeof PDFJSDev === "undefined" || PDFJSDev.test("GENERIC")) {
-    const queryString = document.location.search.substring(1);
-    const params = parseQueryString(queryString);
-    file = "file" in params ? params.file : AppOptions.get("defaultUrl");
-    validateFileURL(file);
-  } else if (PDFJSDev.test("MOZCENTRAL")) {
-    file = window.location.href;
-  } else if (PDFJSDev.test("CHROME")) {
-    file = AppOptions.get("defaultUrl");
-  }
+  let file = window.pdfUrl;
 
   if (typeof PDFJSDev === "undefined" || PDFJSDev.test("GENERIC")) {
     const fileInput = document.createElement("input");
