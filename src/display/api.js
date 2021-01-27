@@ -1751,6 +1751,8 @@ const PDFWorker = (function PDFWorkerClosure() {
   }
 
   function getWorkerSrc() {
+    return window.pdfWorkerSrc;
+
     if (GlobalWorkerOptions.workerSrc) {
       return GlobalWorkerOptions.workerSrc;
     }
