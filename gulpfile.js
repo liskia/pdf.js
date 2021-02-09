@@ -2278,11 +2278,11 @@ gulp.task(
     'generic-es5',
     function () {
       return gulp.src('build/generic-es5/build/*')
-      .pipe(gulp.dest(path.resolve('../app/public/pdf/build')))
+      .pipe(gulp.dest(path.resolve('../../public/pdf/build')))
     },
     function () {
       return gulp.src('build/generic-es5/web/**/*')
-      .pipe(gulp.dest(path.resolve('../app/public/pdf')))
+      .pipe(gulp.dest(path.resolve('../../public/pdf')))
     }
   )
 );
